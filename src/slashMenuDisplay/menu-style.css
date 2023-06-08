@@ -1,0 +1,60 @@
+.menu-display-root {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+  width: 300px;
+  z-index: 100;
+  overflow: scroll;
+  border-radius: 0.3rem;
+  background-color: #fafafa;
+  border: 2px solid #dddddd;
+}
+
+.menu-element-wrapper {
+  display: flex;
+  border-radius: 0.3rem;
+  padding: 0.2rem 0.5rem;
+}
+
+.menu-element-icon {
+  width: 23px;
+  height: auto;
+  display: flex;
+  align-items: center;
+}
+
+.menu-element {
+  color: black;
+  display: flex;
+  align-items: center;
+}
+
+.menu-placeholder {
+  color: #aaaaaa;
+  text-align: center;
+  padding-top: 1rem;
+}
+
+.menu-filter-wrapper {
+  display: flex;
+  background-color: transparent;
+  padding: 0.2rem 0.5rem;
+  position: absolute;
+  top: -1rem;
+}
+
+.menu-filter {
+  color: #aaaaaa;
+  font-style: italic;
+}
+
+.menu-backarrow {
+  width: 17px;
+  height: auto;
+  margin: 0.5rem 0 0.2rem 0.5rem;
+}
+
+.submenu-label{
+  margin-left: 0.5rem;
+}
