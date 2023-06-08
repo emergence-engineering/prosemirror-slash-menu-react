@@ -29,7 +29,7 @@ export interface SlashMenuProps {
   };
 }
 
-const SlashMenuDisplay: FC<SlashMenuProps> = ({
+export const SlashMenuDisplay: FC<SlashMenuProps> = ({
   editorState,
   editorView,
   config,
@@ -260,5 +260,3 @@ const SlashMenuDisplay: FC<SlashMenuProps> = ({
     </>
   );
 };
-
-export default SlashMenuDisplay;
