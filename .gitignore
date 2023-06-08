@@ -24,3 +24,7 @@ yarn-error.log*
 
 #yalc
 .yalc
+
+.idea
+
+dist
