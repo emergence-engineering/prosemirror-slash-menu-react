@@ -1,6 +1,115 @@
+import { CommandItem, SubMenu } from "prosemirror-slash-menu";
+import { setBlockType, toggleMark } from "prosemirror-commands";
+import { schema } from "prosemirror-schema-basic";
+
+export enum Icons {
+  "HeaderMenu" = "HeaderMenu",
+  "Level1" = "Level1",
+  "Level2" = "Level2",
+  "Level3" = "Level3",
+  "Bold" = "Bold",
+  "Italic" = "Italic",
+  "Link" = "Link",
+  "Code" = "Code",
+}
+
+const H1Command: CommandItem = {
+  id: Icons.Level1,
+  label: "H1",
+  type: "command",
+  command: (view) => {
+    setBlockType(schema.nodes.heading, { level: 1 })(
+      view.state,
+      view.dispatch,
+      view
+    );
+  },
+  available: () => true,
+};
+const H2Command: CommandItem = {
+  id: Icons.Level2,
+  label: "H2",
+  type: "command",
+  command: (view) => {
+    setBlockType(schema.nodes.heading, { level: 2 })(
+      view.state,
+      view.dispatch,
+      view
+    );
+  },
+  available: () => true,
+};
+const H3Command: CommandItem = {
+  id: Icons.Level3,
+  label: "H3",
+  type: "command",
+  command: (view) => {
+    setBlockType(schema.nodes.heading, { level: 3 })(
+      view.state,
+      view.dispatch,
+      view
+    );
+  },
+  available: () => true,
+};
+
+const BoldCommand: CommandItem = {
+  id: Icons.Bold,
+  label: "Bold",
+  type: "command",
+  command: (view) => {
+    const markType = schema.marks.strong;
+    toggleMark(markType)(view.state, view.dispatch, view);
+  },
+  available: () => true,
+};
+const ItalicCommand: CommandItem = {
+  id: Icons.Italic,
+  label: "Italic",
+  type: "command",
+  command: (view) => {
+    const markType = schema.marks.em;
+    toggleMark(markType)(view.state, view.dispatch, view);
+  },
+  available: () => true,
+};
+const CodeCommand: CommandItem = {
+  id: Icons.Code,
+  label: "Code",
+  type: "command",
+  command: (view) => {
+    const markType = schema.marks.code;
+    toggleMark(markType)(view.state, view.dispatch, view);
+  },
+  available: () => true,
+};
+const LinkCommand: CommandItem = {
+  id: Icons.Link,
+  label: "Link",
+  type: "command",
+  command: (view) => {
+    const markType = schema.marks.link;
+    toggleMark(markType)(view.state, view.dispatch, view);
+  },
+  available: () => true,
+};
+
+const HeadingsMenu: SubMenu = {
+  id: Icons.HeaderMenu,
+  label: "Headings",
+  type: "submenu",
+  elements: [H1Command, H2Command, H3Command],
+};
+export const defaultElements = [
+  HeadingsMenu,
+  BoldCommand,
+  ItalicCommand,
+  CodeCommand,
+  LinkCommand,
+];
 import React from "react";
 
-export const HeadingIcon = () => (
+const HeadingIcon = () => (
   <svg
     fill="#000000"
     width="36"
@@ -11,7 +120,7 @@ export const HeadingIcon = () => (
     <path d="M18 20V4h-3v6H9V4H6v16h3v-7h6v7z" />
   </svg>
 );
-export const H1Icon = () => (
+const H1Icon = () => (
   <svg
     width="36"
     height="36"
@@ -29,7 +138,7 @@ export const H1Icon = () => (
     />
   </svg>
 );
-export const H2Icon = () => (
+const H2Icon = () => (
   <svg
     width="36"
     height="36"
@@ -47,7 +156,7 @@ export const H2Icon = () => (
     />
   </svg>
 );
-export const H3Icon = () => (
+const H3Icon = () => (
   <svg
     width="36"
     height="36"
@@ -65,7 +174,7 @@ export const H3Icon = () => (
     />
   </svg>
 );
-export const ItalicIcon = () => (
+const ItalicIcon = () => (
   <svg
     width="25"
     height="24"
@@ -79,7 +188,7 @@ export const ItalicIcon = () => (
     />
   </svg>
 );
-export const BoldIcon = () => (
+const BoldIcon = () => (
   <svg
     width="25"
     height="24"
@@ -95,7 +204,7 @@ export const BoldIcon = () => (
     />
   </svg>
 );
-export const ArrowLeft = () => (
+const ArrowLeft = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -112,7 +221,7 @@ export const ArrowLeft = () => (
     <polyline points="12 19 5 12 12 5"></polyline>
   </svg>
 );
-export const ArrowRight = () => (
+const ArrowRight = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -129,7 +238,7 @@ export const ArrowRight = () => (
     <polyline points="12 5 19 12 12 19"></polyline>
   </svg>
 );
-export const CodeIcon = () => (
+const CodeIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -146,7 +255,7 @@ export const CodeIcon = () => (
     <polyline points="8 6 2 12 8 18"></polyline>
   </svg>
 );
-export const Link = () => (
+const LinkIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -163,3 +272,15 @@ export const Link = () => (
     <line x1="8" y1="12" x2="16" y2="12"></line>
   </svg>
 );
+
+export const defaultIcons = {
+  H1Icon,
+  H2Icon,
+  H3Icon,
+  LinkIcon,
+  BoldIcon,
+  CodeIcon,
+  ItalicIcon,
+  ArrowLeft,
+  ArrowRight,
+};

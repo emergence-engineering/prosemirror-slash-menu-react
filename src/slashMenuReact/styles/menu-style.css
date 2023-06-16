@@ -28,6 +28,11 @@
   color: black;
   display: flex;
   align-items: center;
+  margin-left: 0.5rem;
+}
+
+.menu-element-selected {
+  background-color: #f1f1f1;
 }
 
 .menu-placeholder {

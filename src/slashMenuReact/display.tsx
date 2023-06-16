@@ -1,6 +1,5 @@
 import React, { FC, useEffect, useMemo, useRef, useState } from "react";
 import { EditorState } from "prosemirror-state";
-import * as slashMenu from "prosemirror-slash-menu";
 import {
   SlashMenuKey,
   dispatchWithMeta,
@@ -11,25 +10,25 @@ import { getElements } from "./utils";
 import { EditorView } from "prosemirror-view";
 import { usePopper } from "react-popper";
 import { detectOverflow, ModifierArguments, Options } from "@popperjs/core";
-import { ArrowLeft } from "./icons/defaultIcons";
 import { ListItem } from "./ListItem";
+import "./styles/menu-style.css";
+import { defaultIcons } from "./defaults";
 
-export interface SlashMenuDisplayConfig {
+export interface SlashMenuReactConfig {
   height: number;
-  minHeight: number;
   overflowPadding: number;
 }
 
 export interface SlashMenuProps {
   editorState: EditorState;
   editorView: EditorView;
-  config: SlashMenuDisplayConfig;
+  config: SlashMenuReactConfig;
   icons?: {
     [key: string]: FC;
   };
 }
 
-export const SlashMenuDisplay: FC<SlashMenuProps> = ({
+export const SlashMenuReact: FC<SlashMenuProps> = ({
   editorState,
   editorView,
   config,
@@ -41,20 +40,18 @@ export const SlashMenuDisplay: FC<SlashMenuProps> = ({
   }, [editorState]);
   const elements = useMemo(() => {
     if (!menuState) return;
-
     return getElements(menuState);
   }, [menuState]);
   const rootRef = useRef<HTMLDivElement>(null);
-  console.log({ SlashMetaTypes, slashMenu });
+
   useEffect(() => {
     if (!rootRef) return;
     const outsideClickHandler = (event: MouseEvent) => {
-      console.log({ SlashMetaTypes });
       if (
         rootRef.current &&
         (!event.target ||
           !(event.target instanceof Node) ||
-          !rootRef.current.contains(event.target))
+          !rootRef.current.contains(event?.target))
       ) {
         dispatchWithMeta(editorView, SlashMenuKey, {
           type: SlashMetaTypes.close,
@@ -66,70 +63,35 @@ export const SlashMenuDisplay: FC<SlashMenuProps> = ({
       document.removeEventListener("mousedown", outsideClickHandler);
     };
   }, [rootRef]);
-  const [menuHeight, setMenuHeight] = useState(config.height);
-  const [shouldFlip, setShouldFlip] = useState(false);
-  const heightModifier = useMemo(() => {
-    return {
-      name: "heightModifier",
-      enabled: true,
-      phase: "main",
-      requiresIfExists: ["offset"],
-      fn(props: ModifierArguments<Options>) {
-        const { state } = props;
-        const overflow = detectOverflow(state);
-        if (menuHeight < config.minHeight) {
-          setShouldFlip(true);
-          setMenuHeight(config.height);
-          return;
-        }
-        if (overflow.bottom + config.overflowPadding > 0 && !shouldFlip) {
-          const newMenuHeight =
-            config.height - config.overflowPadding - overflow.bottom;
-          setMenuHeight(newMenuHeight);
-          return;
-        }
-        if (menuHeight < config.height) {
-          setMenuHeight(config.height);
-          return;
-        }
-        if (overflow.bottom < -config.minHeight) {
-          setShouldFlip(false);
-          setMenuHeight(config.height);
-          return;
-        }
-        return;
-      },
-    };
-  }, [config, menuHeight, shouldFlip]);
+
   const [popperElement, setPopperElement] = React.useState(null);
-  const flipModifier = useMemo(() => {
-    return { name: "flip", enabled: shouldFlip };
-  }, [shouldFlip]);
   const virtualReference = useMemo(() => {
     const domNode = editorView.domAtPos(editorState.selection.to)?.node;
+    const cursorLeft = editorView.coordsAtPos(editorState.selection.to).left;
     if (!(domNode instanceof HTMLElement)) return;
     const { top, left, height } = domNode.getBoundingClientRect();
+    // console.log(cursorPos.left, left);
+
     return {
       getBoundingClientRect() {
         return {
           top: top,
-          right: left,
+          right: cursorLeft,
           bottom: top,
-          left: left,
+          left: cursorLeft,
           width: 0,
           height: height,
-          x: left,
+          x: cursorLeft,
           y: top,
-          // TODO missing toJSON causes type error do we really need this?
           toJSON: () =>
             JSON.stringify({
               top: top,
-              right: left,
+              right: cursorLeft,
               bottom: top,
-              left: left,
+              left: cursorLeft,
               width: 0,
               height: height,
-              x: left,
+              x: cursorLeft,
               y: top,
             }),
         };
@@ -139,8 +101,7 @@ export const SlashMenuDisplay: FC<SlashMenuProps> = ({
 
   const { styles, attributes } = usePopper(virtualReference, popperElement, {
     modifiers: [
-      flipModifier,
-      heightModifier,
+      { name: "flip", enabled: true },
       {
         name: "preventOverflow",
         options: {
@@ -164,16 +125,16 @@ export const SlashMenuDisplay: FC<SlashMenuProps> = ({
     const height =
       element.clientHeight +
       parseInt(
-        window.getComputedStyle(element).getPropertyValue("margin-top"),
+        window.getComputedStyle(element).getPropertyValue("margin-top")
       ) +
       parseInt(
-        window.getComputedStyle(element).getPropertyValue("margin-bottom"),
+        window.getComputedStyle(element).getPropertyValue("margin-bottom")
       ) +
       parseInt(
-        window.getComputedStyle(element).getPropertyValue("padding-top"),
+        window.getComputedStyle(element).getPropertyValue("padding-top")
       ) +
       parseInt(
-        window.getComputedStyle(element).getPropertyValue("padding-bottom"),
+        window.getComputedStyle(element).getPropertyValue("padding-bottom")
       );
 
     const { bottom, top } = element.getBoundingClientRect();
@@ -191,6 +152,7 @@ export const SlashMenuDisplay: FC<SlashMenuProps> = ({
       }
     }
   }, [menuState]);
+
   useEffect(() => {
     if (rootRef.current === null) {
       return;
@@ -219,7 +181,7 @@ export const SlashMenuDisplay: FC<SlashMenuProps> = ({
         >
           {menuState.filter ? (
             <div className={"menu-filter-wrapper"}>
-              <div id={"menu-filter"} className={"menu-filter "}>
+              <div id={"menu-filter"} className={"menu-filter"}>
                 {menuState.filter}
               </div>
             </div>
@@ -230,13 +192,13 @@ export const SlashMenuDisplay: FC<SlashMenuProps> = ({
             ref={rootRef}
             className={"menu-display-root"}
             style={{
-              height: menuHeight,
+              height: config.height,
             }}
           >
             {menuState.subMenuId ? (
               <div className={"menu-element-wrapper"}>
                 <div className={"menu-element-icon"}>
-                  <ArrowLeft />
+                  {defaultIcons.ArrowLeft()}
                 </div>
                 <div className={"submenu-label"}>{subMenuLabel}</div>
               </div>
