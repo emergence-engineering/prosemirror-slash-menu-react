@@ -15,6 +15,15 @@ Try it out at <https://emergence-engineering.com/blog/prosemirror-slash-menu>
 - Custom styling with css classnames
 - Outside click handling
 
+#Behavior
+
+The menu is opened by the `/` key in an empty paragraph or after a space and can be filtered and navigated with the keyboard.
+For exact behaviour description see [prosemirror-slash-menu](https://github.com/emergence-engineering/prosemirror-slash-menu).
+
+![alt text](https://github.com/emergence-engineering/prosemirror-slash-menu-react/blob/main/public/prosemirror-slash-menu.gif?raw=true)
+
+
+
 # Installation and Usage
 Install from npm with:
 
