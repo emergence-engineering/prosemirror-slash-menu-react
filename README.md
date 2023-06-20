@@ -1,10 +1,15 @@
 # prosemirror-slash-menu-react
 
+![made by Emergence Engineering](https://emergence-engineering.com/ee-logo.svg)
+
+[**Made by Emergence-Engineering**](https://emergence-engineering.com/)
+
 A UI package used together with [prosemirror-slash-menu](https://github.com/emergence-engineering/prosemirror-slash-menu) to display the menu with react.
 
 By Horváth Áron & [Viktor Váczi](https://emergence-engineering.com/cv/viktor) at [Emergence Engineering](https://emergence-engineering.com/)
 
 Try it out at <https://emergence-engineering.com/blog/prosemirror-slash-menu>
+![alt text](https://github.com/emergence-engineering/prosemirror-slash-menu-react/blob/main/public/prosemirror-slash-menu.gif?raw=true)
 
 # Features
 
@@ -15,19 +20,16 @@ Try it out at <https://emergence-engineering.com/blog/prosemirror-slash-menu>
 - Custom styling with css classnames
 - Outside click handling
 
-#Behavior
+# Behavior
 
-The menu is opened by the `/` key in an empty paragraph or after a space and can be filtered and navigated with the keyboard.
+You can open the menu with the `/` key in an empty paragraph or after a space and you can filter the elements just by typing, or you can navigate with the keyboard.
 For exact behaviour description see [prosemirror-slash-menu](https://github.com/emergence-engineering/prosemirror-slash-menu).
-
-![alt text](https://github.com/emergence-engineering/prosemirror-slash-menu-react/blob/main/public/prosemirror-slash-menu.gif?raw=true)
-
 
 
 # Installation and Usage
 Install from npm with:
 
-`npm install prosemirror-slash-menu-react` .
+`npm install prosemirror-slash-menu-react` 
 
 Usage in the app:
 
