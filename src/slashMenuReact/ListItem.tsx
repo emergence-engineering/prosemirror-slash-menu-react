@@ -28,7 +28,7 @@ export const ListItem: FC<{
         </div>
       ) : null}
 
-      <div className={"menu-element"}>{label}</div>
+      <div className={"menu-element-label"}>{label}</div>
     </div>
   );
 };

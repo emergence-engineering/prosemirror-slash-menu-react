@@ -18,39 +18,39 @@ const H1Command: CommandItem = {
   label: "H1",
   type: "command",
   command: (view) => {
-    setBlockType(schema.nodes.heading, { level: 1 })(
+    setBlockType(view.state.schema.nodes.heading, { level: 1 })(
       view.state,
       view.dispatch,
       view
     );
   },
-  available: () => true,
+  available: (view) => true,
 };
 const H2Command: CommandItem = {
   id: Icons.Level2,
   label: "H2",
   type: "command",
   command: (view) => {
-    setBlockType(schema.nodes.heading, { level: 2 })(
+    setBlockType(view.state.schema.nodes.heading, { level: 2 })(
       view.state,
       view.dispatch,
       view
     );
   },
-  available: () => true,
+  available: (view) => true,
 };
 const H3Command: CommandItem = {
   id: Icons.Level3,
   label: "H3",
   type: "command",
   command: (view) => {
-    setBlockType(schema.nodes.heading, { level: 3 })(
+    setBlockType(view.state.schema.nodes.heading, { level: 3 })(
       view.state,
       view.dispatch,
       view
     );
   },
-  available: () => true,
+  available: (view) => true,
 };
 
 const BoldCommand: CommandItem = {
@@ -58,46 +58,47 @@ const BoldCommand: CommandItem = {
   label: "Bold",
   type: "command",
   command: (view) => {
-    const markType = schema.marks.strong;
+    const markType = view.state.schema.marks.strong;
     toggleMark(markType)(view.state, view.dispatch, view);
   },
-  available: () => true,
+  available: (view) => true,
 };
 const ItalicCommand: CommandItem = {
   id: Icons.Italic,
   label: "Italic",
   type: "command",
   command: (view) => {
-    const markType = schema.marks.em;
+    const markType = view.state.schema.marks.em;
     toggleMark(markType)(view.state, view.dispatch, view);
   },
-  available: () => true,
+  available: (view) => true,
 };
 const CodeCommand: CommandItem = {
   id: Icons.Code,
   label: "Code",
   type: "command",
   command: (view) => {
-    const markType = schema.marks.code;
+    const markType = view.state.schema.marks.code;
     toggleMark(markType)(view.state, view.dispatch, view);
   },
-  available: () => true,
+  available: (view) => true,
 };
 const LinkCommand: CommandItem = {
   id: Icons.Link,
   label: "Link",
   type: "command",
   command: (view) => {
-    const markType = schema.marks.link;
+    const markType = view.state.schema.marks.link;
     toggleMark(markType)(view.state, view.dispatch, view);
   },
-  available: () => true,
+  available: (view) => true,
 };
 
 const HeadingsMenu: SubMenu = {
   id: Icons.HeaderMenu,
   label: "Headings",
   type: "submenu",
+  available: (view) => true,
   elements: [H1Command, H2Command, H3Command],
 };
 export const defaultElements = [

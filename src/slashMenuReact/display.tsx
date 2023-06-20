@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useMemo, useRef, useState } from "react";
+import React, { FC, ReactNode, useEffect, useMemo, useRef } from "react";
 import { EditorState } from "prosemirror-state";
 import {
   SlashMenuKey,
@@ -9,30 +9,24 @@ import {
 import { getElements } from "./utils";
 import { EditorView } from "prosemirror-view";
 import { usePopper } from "react-popper";
-import { detectOverflow, ModifierArguments, Options } from "@popperjs/core";
 import { ListItem } from "./ListItem";
 import "./styles/menu-style.css";
 import { defaultIcons } from "./defaults";
 
-export interface SlashMenuReactConfig {
-  height: number;
-  overflowPadding: number;
-}
-
 export interface SlashMenuProps {
   editorState: EditorState;
   editorView: EditorView;
-  config: SlashMenuReactConfig;
   icons?: {
     [key: string]: FC;
   };
+  subMenuIcon?: ReactNode;
 }
 
 export const SlashMenuReact: FC<SlashMenuProps> = ({
   editorState,
   editorView,
-  config,
   icons,
+  subMenuIcon,
 }) => {
   const menuState = useMemo(() => {
     if (!editorState) return;
@@ -69,8 +63,7 @@ export const SlashMenuReact: FC<SlashMenuProps> = ({
     const domNode = editorView.domAtPos(editorState.selection.to)?.node;
     const cursorLeft = editorView.coordsAtPos(editorState.selection.to).left;
     if (!(domNode instanceof HTMLElement)) return;
-    const { top, left, height } = domNode.getBoundingClientRect();
-    // console.log(cursorPos.left, left);
+    const { top, height } = domNode.getBoundingClientRect();
 
     return {
       getBoundingClientRect() {
@@ -169,13 +162,10 @@ export const SlashMenuReact: FC<SlashMenuProps> = ({
     <>
       {menuState?.open ? (
         <div
-          //TODO Ts fix, might not be possible, popper is missing its typing I think
           // @ts-ignore
           ref={setPopperElement}
           style={{
             ...styles.popper,
-            height: config.height,
-            padding: "0.5rem",
           }}
           {...attributes.popper}
         >
@@ -191,14 +181,11 @@ export const SlashMenuReact: FC<SlashMenuProps> = ({
             id={"slashDisplay"}
             ref={rootRef}
             className={"menu-display-root"}
-            style={{
-              height: config.height,
-            }}
           >
             {menuState.subMenuId ? (
               <div className={"menu-element-wrapper"}>
                 <div className={"menu-element-icon"}>
-                  {defaultIcons.ArrowLeft()}
+                  {subMenuIcon || defaultIcons.ArrowLeft()}
                 </div>
                 <div className={"submenu-label"}>{subMenuLabel}</div>
               </div>
@@ -214,7 +201,7 @@ export const SlashMenuReact: FC<SlashMenuProps> = ({
               />
             ))}
             {elements?.length === 0 ? (
-              <div className={"menu-placeholder"}>No Matching items</div>
+              <div className={"menu-placeholder"}>No matching items</div>
             ) : null}
           </div>
         </div>
