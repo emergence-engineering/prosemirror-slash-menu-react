@@ -23,7 +23,7 @@ Try it out at <https://emergence-engineering.com/blog/prosemirror-slash-menu>
 # Behavior
 
 You can open the menu with the `/` key in an empty paragraph or after a space and you can filter the elements just by typing, or you can navigate with the keyboard.
-For exact behaviour description see [prosemirror-slash-menu](https://github.com/emergence-engineering/prosemirror-slash-menu).
+For exact behaviour description checkout [prosemirror-slash-menu](https://github.com/emergence-engineering/prosemirror-slash-menu).
 
 
 # Installation and Usage
