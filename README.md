@@ -1,46 +1,137 @@
-# Getting Started with Create React App
+# prosemirror-slash-menu-react
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![made by Emergence Engineering](https://emergence-engineering.com/ee-logo.svg)
 
-## Available Scripts
+[**Made by Emergence-Engineering**](https://emergence-engineering.com/)
 
-In the project directory, you can run:
+A UI package used together with [prosemirror-slash-menu](https://github.com/emergence-engineering/prosemirror-slash-menu) to display the menu with react.
 
-### `npm start`
+By Horváth Áron & [Viktor Váczi](https://emergence-engineering.com/cv/viktor) at [Emergence Engineering](https://emergence-engineering.com/)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Try it out at <https://emergence-engineering.com/blog/prosemirror-slash-menu>
+![alt text](https://github.com/emergence-engineering/prosemirror-slash-menu-react/blob/main/public/prosemirror-slash-menu.gif?raw=true)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+# Features
 
-### `npm test`
+- Displaying `prosemirror-slash-menu` with react
+- Menu positioning at the cursor position
+- Displaying the menu upwards in case of overflow
+- Default styling
+- Custom styling with css classnames
+- Outside click handling
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# Behavior
 
-### `npm run build`
+You can open the menu with the `/` key in an empty paragraph or after a space and you can filter the elements just by typing, or you can navigate with the keyboard.
+For exact behaviour description checkout [prosemirror-slash-menu](https://github.com/emergence-engineering/prosemirror-slash-menu).
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# Installation and Usage
+Install from npm with:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+`npm install prosemirror-slash-menu-react` 
 
-### `npm run eject`
+Usage in the app:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```tsx
+import React, { useEffect, useRef, useState } from "react";
+import { exampleSetup } from "prosemirror-example-setup";
+import { EditorState } from "prosemirror-state";
+import { EditorView } from "prosemirror-view";
+import schema from "./schema";
+import { SlashMenuPlugin } from "prosemirror-slash-menu";
+import {
+  defaultElements,
+  defaultIcons,
+  Icons,
+  SlashMenuReact,
+} from "prosemirror-slash-menu-react";
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+const ProseMirrorSlashMenuDemo = () => {
+  const [pmState, setPmState] = useState<EditorState>();
+  const [editorView, setEditorView] = useState<EditorView>();
+  const editorRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!editorRef.current) return;
+    const state = EditorState.create({
+      doc: schema.nodeFromJSON({
+        content: [
+          {
+            content: [
+              {
+                text: "Type '/' after a space to open the menu. ",
+                type: "text",
+              },
+            ],
+            type: "paragraph",
+          },
+        ],
+        type: "doc",
+      }),
+      plugins: [
+        SlashMenuPlugin(defaultElements),
+        ...exampleSetup({
+          schema,
+        }),
+      ],
+    });
+    const view: EditorView = new EditorView(editorRef.current, {
+      state,
+      dispatchTransaction: (tr) => {
+        try {
+          const newState = view.state.apply(tr);
+          view.updateState(newState);
+          setPmState(newState);
+        } catch (e) {}
+      },
+    });
+    setEditorView(view);
+    return () => {
+      view && view.destroy();
+    };
+  }, [editorRef]);
+  return (
+    <>
+      <div ref={editorRef} id="editor" />
+      {pmState && editorView && (
+        <SlashMenuReact
+          icons={{
+            [Icons.HeaderMenu]: defaultIcons.H1Icon,
+            [Icons.Level1]: defaultIcons.H1Icon,
+            [Icons.Level2]: defaultIcons.H2Icon,
+            [Icons.Level3]: defaultIcons.H3Icon,
+            [Icons.Bold]: defaultIcons.BoldIcon,
+            [Icons.Italic]: defaultIcons.ItalicIcon,
+            [Icons.Code]: defaultIcons.CodeIcon,
+            [Icons.Link]: defaultIcons.LinkIcon,
+          }}
+          editorState={pmState}
+          editorView={editorView}
+        />
+      )}
+    </>
+  );
+};
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+# Styling 
 
-## Learn More
+To use the basic styling you can import `menu-style.css` into your project. If you want to use your own styling you can override the following classnames.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- `menu-display-root` root div for the menu
+- `menu-element-wrapper` root of menu elements
+- `menu-element-selected` classname that is added alongside `menu-element-wrapper` when an element is selected
+- `menu-element-icon` if icon is provided for the element it's rendered in this div
+- `menu-element-label` label of the menu element
+- `menu-placeholder` when there is no matching items for the filter, this is displayed with the text "No matching items"
+- `menu-filter-wrapper` root of the filter display, positioned above the menu by default
+- `menu-filter` the filter text 
+- `submenu-label` The label of the submenu is shown above the menu elements when its opened
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# Props 
+
+- `editorState` prosemirrors editor state
+- `editorView` prosemirror editor view
+- `icons` Optional, if you want to provide icons for your menu elements. Type of `{[key: string]: FC}` where the key is the id of the menu element and the value is a `FunctionComponent` that renders the icon 
+- `subMenuIcon` Optional icon for submenu label. By default, when a submenu is open an arrow is displayed indicating that the user is in a subMenu, it can be replaced with a react node of your choice

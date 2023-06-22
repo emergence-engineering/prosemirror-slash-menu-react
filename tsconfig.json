@@ -1,26 +1,36 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
+    "target": "es6",
+    "lib": ["es6", "es2015", "dom", "es2017"],
     "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx"
+    "moduleResolution": "Node",
+    "declaration": true,
+    "declarationDir": "./dist",
+    "outDir": "./dist",
+    "strict": true,
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react"
   },
   "include": [
-    "src"
+    "src/**/*.ts","src/**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
   ]
 }
+//{
+//  "compilerOptions": {
+//    "target": "es6",
+//    "lib": ["es6", "es2015", "dom", "es2017"],
+//    "module": "esnext",
+//    "moduleResolution": "Node",
+//    "declaration": true,
+//    "declarationDir": "./dist",
+//    "outDir": "./dist",
+//    "strict": true,
+//    "allowSyntheticDefaultImports": true
+//  },
+//  "compileOnSave": true,
+//  "include": ["src/**/*.ts","src/**/*.tsx"],
+//  "exclude": ["node_modules", "**/__tests__/*"]
+//}
