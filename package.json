@@ -79,5 +79,9 @@
   },
   "peerDependencies": {
     "react": "^18.2.0"
+  },
+  "engines": {
+    "node": ">=12",
+    "npm": ">=6"
   }
 }
