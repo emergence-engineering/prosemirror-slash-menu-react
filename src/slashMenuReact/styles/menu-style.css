@@ -1,60 +1,72 @@
 .menu-display-root {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  height: 150px;
-  width: 200px;
-  z-index: 100;
-  overflow: scroll;
-  border-radius: 0.3rem;
-  background-color: #fafafa;
-  border: 2px solid #dddddd;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    height: 150px;
+    width: 200px;
+    z-index: 100;
+    overflow: scroll;
+    border-radius: 0.3rem;
+    background-color: #fafafa;
+    border: 2px solid #dddddd;
 }
 
 .menu-element-wrapper {
-  display: flex;
-  border-radius: 0.3rem;
-  padding: 0.2rem 0.5rem;
+    display: flex;
+    border-radius: 0.3rem;
+    padding: 0.2rem 0.5rem;
 }
 
 .menu-element-selected {
-  background-color: #f1f1f1;
+    background-color: #f1f1f1;
 }
 
 .menu-element-icon {
-  width: 23px;
-  height: auto;
-  display: flex;
-  align-items: center;
+    width: 23px;
+    height: auto;
+    display: flex;
+    align-items: center;
 }
 
 .menu-element-label {
-  color: black;
-  display: flex;
-  align-items: center;
-  margin-left: 0.5rem;
+    color: black;
+    display: flex;
+    align-items: center;
+    margin-left: 0.5rem;
 }
 
 .menu-placeholder {
-  color: #aaaaaa;
-  text-align: center;
-  padding-top: 1rem;
+    color: #aaaaaa;
+    text-align: center;
+    padding-top: 1rem;
 }
 
 .menu-filter-wrapper {
-  display: flex;
-  background-color: transparent;
-  padding: 0.2rem 0.5rem;
-  position: absolute;
-  top: -1.5rem;
+    display: flex;
+    background-color: transparent;
+    padding: 0.2rem 0.5rem;
+    position: absolute;
+    top: -1.5rem;
+    width: 200px;
+}
+
+.menu-filter-icon {
+    width: 23px;
+    height: auto;
+    display: flex;
+    align-items: center;
 }
 
 .menu-filter {
-  color: #aaaaaa;
-  font-style: italic;
+    color: #aaaaaa;
+    font-style: italic
 }
 
+.menu-filter-placeholder {
+    color: #aaaaaa;
+    font-style: italic
+}
 
-.submenu-label{
-  margin-left: 0.5rem;
+.submenu-label {
+    margin-left: 0.5rem;
 }
