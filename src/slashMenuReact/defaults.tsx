@@ -198,8 +198,8 @@ const BoldIcon = () => (
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M19.5 15C19.5 17.7614 17.2614 20 14.5 20H8.5C7.94772 20 7.5 19.5523 7.5 19V5C7.5 4.44772 7.94772 4 8.5 4H14C16.4853 4 18.5 6.01472 18.5 8.5C18.5 9.4786 18.1876 10.3842 17.6572 11.1226C18.7818 12.0395 19.5 13.4359 19.5 15ZM10.5 10H14C14.8284 10 15.5 9.32843 15.5 8.5C15.5 7.67157 14.8284 7 14 7H10.5V10ZM10.5 17V13H14.5C15.6046 13 16.5 13.8954 16.5 15C16.5 16.1046 15.6046 17 14.5 17H10.5Z"
       fill="#050038"
     />
@@ -213,9 +213,9 @@ const ArrowLeft = () => (
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    stroke-width="2"
-    stroke-linecap="round"
-    stroke-linejoin="round"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
     className="feather feather-arrow-left"
   >
     <line x1="19" y1="12" x2="5" y2="12"></line>
@@ -230,9 +230,9 @@ const ArrowRight = () => (
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    stroke-width="2"
-    stroke-linecap="round"
-    stroke-linejoin="round"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
     className="feather feather-arrow-right"
   >
     <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -247,9 +247,9 @@ const CodeIcon = () => (
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    stroke-width="2"
-    stroke-linecap="round"
-    stroke-linejoin="round"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
     className="feather feather-code"
   >
     <polyline points="16 18 22 12 16 6"></polyline>
@@ -264,9 +264,9 @@ const LinkIcon = () => (
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    stroke-width="2"
-    stroke-linecap="round"
-    stroke-linejoin="round"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
     className="feather feather-link-2"
   >
     <path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path>

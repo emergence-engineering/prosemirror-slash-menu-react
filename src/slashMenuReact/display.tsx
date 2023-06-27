@@ -164,6 +164,7 @@ export const SlashMenuReact: FC<SlashMenuProps> = ({
       return getElementById(menuState.subMenuId, menuState)?.label;
     }
   }, [menuState]);
+
   return (
     <>
       {menuState?.open ? (
