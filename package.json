@@ -72,6 +72,7 @@
     "@rollup/plugin-babel": "^6.0.3",
     "@rollup/plugin-node-resolve": "^15.1.0",
     "nodemon": "^2.0.22",
+    "np": "^8.0.4",
     "rollup": "^2.79.1",
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-copy": "^3.4.0",
@@ -79,5 +80,9 @@
   },
   "peerDependencies": {
     "react": "^18.2.0"
+  },
+  "engines": {
+    "node": ">=12",
+    "npm": ">=7"
   }
 }
