@@ -32,6 +32,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "test": "echo \"no test specified\" && exit 0",
     "build": "rollup -c --bundleConfigAsCjs",
     "yalc:watch": "nodemon --watch dist --exec 'yalc push'",
     "dev:watch": "npm-run-all --parallel dev yalc:watch"
