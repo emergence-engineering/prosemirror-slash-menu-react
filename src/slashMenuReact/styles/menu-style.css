@@ -2,7 +2,8 @@
     position: absolute;
     display: flex;
     flex-direction: column;
-    height: 150px;
+    flex: 1;
+    max-height: 150px;
     width: 200px;
     z-index: 100;
     overflow: scroll;
@@ -38,7 +39,7 @@
 .menu-placeholder {
     color: #aaaaaa;
     text-align: center;
-    padding-top: 1rem;
+    padding: 0 0.5rem;
 }
 
 .menu-filter-wrapper {
