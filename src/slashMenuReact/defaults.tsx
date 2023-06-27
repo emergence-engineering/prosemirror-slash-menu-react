@@ -1,5 +1,6 @@
 import { CommandItem, SubMenu } from "prosemirror-slash-menu";
 import { setBlockType, toggleMark } from "prosemirror-commands";
+import { schema } from "prosemirror-schema-basic";
 
 export enum Icons {
   "HeaderMenu" = "HeaderMenu",

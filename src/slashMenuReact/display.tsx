@@ -1,9 +1,9 @@
 import React, { FC, ReactNode, useEffect, useMemo, useRef } from "react";
 import { EditorState } from "prosemirror-state";
 import {
-  SlashMenuKey,
   dispatchWithMeta,
   getElementById,
+  SlashMenuKey,
   SlashMetaTypes,
 } from "prosemirror-slash-menu";
 import { getElements } from "./utils";
@@ -20,6 +20,9 @@ export interface SlashMenuProps {
     [key: string]: FC;
   };
   subMenuIcon?: ReactNode;
+  filterFieldIcon?: ReactNode;
+  filterPlaceHolder?: string;
+  mainMenuLabel?: string;
 }
 
 export const SlashMenuReact: FC<SlashMenuProps> = ({
@@ -27,6 +30,9 @@ export const SlashMenuReact: FC<SlashMenuProps> = ({
   editorView,
   icons,
   subMenuIcon,
+  filterFieldIcon,
+  filterPlaceHolder,
+  mainMenuLabel,
 }) => {
   const menuState = useMemo(() => {
     if (!editorState) return;
@@ -93,6 +99,7 @@ export const SlashMenuReact: FC<SlashMenuProps> = ({
   }, [editorState, window.scrollY]);
 
   const { styles, attributes } = usePopper(virtualReference, popperElement, {
+    placement: "bottom-start",
     modifiers: [
       { name: "flip", enabled: true },
       {
@@ -171,11 +178,23 @@ export const SlashMenuReact: FC<SlashMenuProps> = ({
         >
           {menuState.filter ? (
             <div className={"menu-filter-wrapper"}>
+              {filterFieldIcon ? (
+                <div className={"menu-filter-icon"}>{filterFieldIcon}</div>
+              ) : null}
               <div id={"menu-filter"} className={"menu-filter"}>
                 {menuState.filter}
               </div>
             </div>
-          ) : null}
+          ) : (
+            <div className={"menu-filter-wrapper"}>
+              {filterFieldIcon ? (
+                <div className={"menu-filter-icon"}>{filterFieldIcon}</div>
+              ) : null}
+              <div className={"menu-filter-placeholder"}>
+                {filterPlaceHolder}
+              </div>
+            </div>
+          )}
 
           <div
             id={"slashDisplay"}
@@ -188,6 +207,11 @@ export const SlashMenuReact: FC<SlashMenuProps> = ({
                   {subMenuIcon || defaultIcons.ArrowLeft()}
                 </div>
                 <div className={"submenu-label"}>{subMenuLabel}</div>
+              </div>
+            ) : null}
+            {!menuState.subMenuId && mainMenuLabel ? (
+              <div className={"menu-element-wrapper"}>
+                <div className={"submenu-label"}>{mainMenuLabel}</div>
               </div>
             ) : null}
             {elements?.map((el, idx) => (
