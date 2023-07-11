@@ -1,6 +1,6 @@
 import { CommandItem, SubMenu } from "prosemirror-slash-menu";
 import { setBlockType, toggleMark } from "prosemirror-commands";
-import { schema } from "prosemirror-schema-basic";
+import React from "react";
 
 export enum Icons {
   "HeaderMenu" = "HeaderMenu",
@@ -108,7 +108,6 @@ export const defaultElements = [
   CodeCommand,
   LinkCommand,
 ];
-import React from "react";
 
 const HeadingIcon = () => (
   <svg

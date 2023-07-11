@@ -6,12 +6,34 @@ import {
   SlashMenuKey,
   SlashMetaTypes,
 } from "prosemirror-slash-menu";
-import { getElements } from "./utils";
 import { EditorView } from "prosemirror-view";
 import { usePopper } from "react-popper";
 import { ListItem } from "./ListItem";
 import "./styles/menu-style.css";
 import { defaultIcons } from "./defaults";
+
+export enum Placement {
+  auto = "auto",
+  autoStart = "auto-start",
+  autoEnd = "auto-end",
+  top = "top",
+  topStart = "top-start",
+  topEnd = "top-end",
+  bottom = "bottom",
+  bottomStart = "bottom-start",
+  bottomEnd = "bottom-end",
+  right = "right",
+  rightStart = "right-start",
+  rightEnd = "right-end",
+  left = "left",
+  leftStart = "left-start",
+  leftEnd = "left-end",
+}
+
+export interface PopperOptions {
+  placement: Placement;
+  offsetModifier: { name: string; options: { offset: number[] } };
+}
 
 export interface SlashMenuProps {
   editorState: EditorState;
@@ -23,6 +45,8 @@ export interface SlashMenuProps {
   filterFieldIcon?: ReactNode;
   filterPlaceHolder?: string;
   mainMenuLabel?: string;
+  popperReference?: HTMLElement;
+  popperOptions?: PopperOptions;
 }
 
 export const SlashMenuReact: FC<SlashMenuProps> = ({
@@ -33,6 +57,8 @@ export const SlashMenuReact: FC<SlashMenuProps> = ({
   filterFieldIcon,
   filterPlaceHolder,
   mainMenuLabel,
+  popperReference,
+  popperOptions,
 }) => {
   const menuState = useMemo(() => {
     if (!editorState) return;
@@ -40,7 +66,8 @@ export const SlashMenuReact: FC<SlashMenuProps> = ({
   }, [editorState]);
   const elements = useMemo(() => {
     if (!menuState) return;
-    return getElements(menuState);
+
+    return menuState.filteredElements;
   }, [menuState]);
   const rootRef = useRef<HTMLDivElement>(null);
 
@@ -97,19 +124,34 @@ export const SlashMenuReact: FC<SlashMenuProps> = ({
       },
     };
   }, [editorState, window.scrollY]);
-
-  const { styles, attributes } = usePopper(virtualReference, popperElement, {
-    placement: "bottom-start",
-    modifiers: [
-      { name: "flip", enabled: true },
-      {
-        name: "preventOverflow",
-        options: {
-          mainAxis: false,
-        },
+  const offsetModifier = useMemo(() => {
+    const filterElement = document.getElementById("menu-filter-wrapper");
+    const filterTop = filterElement?.getBoundingClientRect().top;
+    return {
+      name: "offset",
+      options: {
+        offset: [0, 36],
       },
-    ],
-  });
+    };
+  }, [popperReference]);
+  const { styles, attributes } = usePopper(
+    popperReference || virtualReference,
+    popperElement,
+    {
+      placement: popperOptions?.placement
+        ? popperOptions.placement
+        : Placement.bottomStart,
+      modifiers: [
+        { name: "flip", enabled: true },
+        {
+          name: "preventOverflow",
+        },
+        popperOptions?.offsetModifier
+          ? popperOptions.offsetModifier
+          : offsetModifier,
+      ],
+    }
+  );
 
   useEffect(() => {
     if (!menuState) return;
@@ -164,7 +206,9 @@ export const SlashMenuReact: FC<SlashMenuProps> = ({
       return getElementById(menuState.subMenuId, menuState)?.label;
     }
   }, [menuState]);
-
+  useEffect(() => {
+    editorView.focus();
+  }, [menuState?.open]);
   return (
     <>
       {menuState?.open ? (
@@ -203,7 +247,7 @@ export const SlashMenuReact: FC<SlashMenuProps> = ({
           >
             {menuState.subMenuId ? (
               <div className={"menu-element-wrapper"}>
-                <div className={"menu-element-icon"}>
+                <div className={"menu-element-icon-left"}>
                   {subMenuIcon || defaultIcons.ArrowLeft()}
                 </div>
                 <div className={"submenu-label"}>{subMenuLabel}</div>

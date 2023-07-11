@@ -21,6 +21,7 @@ Try it out at <https://emergence-engineering.com/blog/prosemirror-slash-menu>
 - Displaying the menu upwards in case of overflow
 - Default styling
 - Custom styling with css classnames
+- Optional popper reference element, placement and offset
 - Outside click handling
 
 # Behavior
@@ -147,3 +148,5 @@ override the following classnames.
 - `filterFieldIcon` Optional icon in the filter field.
 - `filterPlaceHolder` Optional placeholder text for the filter field.
 - `mainMenuLabel` Optional label for the main menu. By default, there is none.
+- `popperReference` Optional popper reference HTMLElement, for displaying the menu next to whatever element you want
+- `popperOptions` You can pass in `placement` and `offset` to position your menu around the reference Element
