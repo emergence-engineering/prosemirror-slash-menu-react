@@ -1,4 +1,11 @@
-import React, { FC, ReactNode, useEffect, useMemo, useRef } from "react";
+import React, {
+  FC,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+} from "react";
 import { EditorState } from "prosemirror-state";
 import {
   dispatchWithMeta,
@@ -212,9 +219,21 @@ export const SlashMenuReact: FC<SlashMenuProps> = ({
       return getElementById(menuState.subMenuId, menuState)?.label;
     }
   }, [menuState]);
+  const closeSubMenu = useCallback(() => {
+    if (menuState?.subMenuId) {
+      dispatchWithMeta(editorView, SlashMenuKey, {
+        type: SlashMetaTypes.closeSubMenu,
+        element: getElementById(menuState.subMenuId, menuState),
+      });
+    }
+  }, [menuState]);
+  // These two useEffects prevent a bug where the user navigates with clicks, which then blurs the editor and key presses stop working
   useEffect(() => {
     editorView.focus();
   }, [menuState?.open]);
+  useEffect(() => {
+    editorView.focus();
+  }, [menuState?.subMenuId]);
   return (
     <>
       {menuState?.open ? (
@@ -252,7 +271,11 @@ export const SlashMenuReact: FC<SlashMenuProps> = ({
             className={"menu-display-root"}
           >
             {menuState.subMenuId ? (
-              <div className={"menu-element-wrapper"}>
+              <div
+                className={"menu-element-wrapper"}
+                onClick={clickable ? closeSubMenu : undefined}
+                style={{ cursor: clickable ? "pointer" : undefined }}
+              >
                 <div className={"menu-element-icon-left"}>
                   {subMenuIcon || defaultIcons.ArrowLeft()}
                 </div>
