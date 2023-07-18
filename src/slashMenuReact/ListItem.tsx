@@ -1,18 +1,27 @@
-import React, { FC, useEffect } from "react";
-import { SlashMenuState } from "prosemirror-slash-menu";
+import React, { FC, useCallback, useEffect } from "react";
+import {
+  dispatchWithMeta,
+  MenuElement,
+  SlashMenuKey,
+  SlashMenuState,
+  SlashMetaTypes,
+} from "prosemirror-slash-menu";
 import "./styles/menu-style.css";
+import { EditorView } from "prosemirror-view";
 
 export const ListItem: FC<{
   menuState: SlashMenuState;
-  id: string;
-  Icon?: FC;
+  el: MenuElement;
+  view: EditorView;
   idx: number;
-  label: string;
-}> = ({ menuState, id, Icon, idx, label }) => {
+  Icon?: FC;
+  RightIcon?: FC;
+  clickable?: boolean;
+}> = ({ menuState, el, view, Icon, idx, clickable, RightIcon }) => {
   useEffect(() => {
-    const element = document.getElementById(id);
+    const element = document.getElementById(el.id);
     if (!element) return;
-    if (id === menuState.selected) {
+    if (el.id === menuState.selected) {
       element.classList.add("menu-element-selected");
       return;
     }
@@ -20,15 +29,40 @@ export const ListItem: FC<{
       element.classList.remove("menu-element-selected");
     }
   }, [menuState.selected]);
+  const handleOnClick = useCallback(() => {
+    if (el.type === "command") {
+      dispatchWithMeta(view, SlashMenuKey, {
+        type: SlashMetaTypes.execute,
+      });
+      el.command(view);
+    }
+    if (el.type === "submenu") {
+      dispatchWithMeta(view, SlashMenuKey, {
+        type: SlashMetaTypes.openSubMenu,
+        element: el,
+      });
+    }
+  }, [el]);
   return (
-    <div className={"menu-element-wrapper"} id={id} key={`${id}-${idx}`}>
+    <div
+      className={
+        clickable ? "menu-element-wrapper-clickable" : "menu-element-wrapper"
+      }
+      id={el.id}
+      key={`${el.id}-${idx}`}
+      onClick={handleOnClick}
+    >
       {Icon ? (
         <div className={"menu-element-icon"}>
           <Icon />
         </div>
       ) : null}
-
-      <div className={"menu-element-label"}>{label}</div>
+      <div className={"menu-element-label"}>{el.label}</div>
+      {RightIcon ? (
+        <div className={"menu-element-right-icon"}>
+          <RightIcon />
+        </div>
+      ) : null}
     </div>
   );
 };

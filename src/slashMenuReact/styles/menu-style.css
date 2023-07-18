@@ -18,6 +18,13 @@
     padding: 0.2rem 0.5rem;
 }
 
+.menu-element-wrapper-clickable {
+    display: flex;
+    border-radius: 0.3rem;
+    padding: 0.2rem 0.5rem;
+    cursor: pointer;
+}
+
 .menu-element-selected {
     background-color: #f1f1f1;
 }
@@ -27,6 +34,15 @@
     height: auto;
     display: flex;
     align-items: center;
+}
+
+.menu-element-right-icon {
+    margin-left: auto;
+    width: 23px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    margin-right: 0.5rem;
 }
 
 .menu-element-label {

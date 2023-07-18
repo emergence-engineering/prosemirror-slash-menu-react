@@ -41,24 +41,30 @@ export interface SlashMenuProps {
   icons?: {
     [key: string]: FC;
   };
+  rightIcons?: {
+    [key: string]: FC;
+  };
   subMenuIcon?: ReactNode;
   filterFieldIcon?: ReactNode;
   filterPlaceHolder?: string;
   mainMenuLabel?: string;
   popperReference?: HTMLElement;
   popperOptions?: PopperOptions;
+  clickable?: boolean;
 }
 
 export const SlashMenuReact: FC<SlashMenuProps> = ({
   editorState,
   editorView,
   icons,
+  rightIcons,
   subMenuIcon,
   filterFieldIcon,
   filterPlaceHolder,
   mainMenuLabel,
   popperReference,
   popperOptions,
+  clickable,
 }) => {
   const menuState = useMemo(() => {
     if (!editorState) return;
@@ -262,10 +268,12 @@ export const SlashMenuReact: FC<SlashMenuProps> = ({
               <ListItem
                 key={el.id}
                 menuState={menuState}
-                id={el.id}
                 Icon={icons?.[el.id]}
+                RightIcon={rightIcons?.[el.id]}
                 idx={idx}
-                label={el.label}
+                clickable={clickable}
+                el={el}
+                view={editorView}
               />
             ))}
             {elements?.length === 0 ? (

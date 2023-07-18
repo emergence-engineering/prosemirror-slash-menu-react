@@ -127,8 +127,10 @@ override the following classnames.
 
 - `menu-display-root` root div for the menu
 - `menu-element-wrapper` root of menu elements
+- `menu-element-wrapper-clickable` root of menu elements when the menu items are set to be clickable
 - `menu-element-selected` classname that is added alongside `menu-element-wrapper` when an element is selected
 - `menu-element-icon` if icon is provided for the element it's rendered in this div
+- `menu-element-right-icon` if right icon is provided its rendered in this div
 - `menu-element-label` label of the menu element
 - `menu-placeholder` when there is no matching items for the filter, this is displayed with the text "No matching items"
 - `menu-filter-wrapper` root of the filter display, positioned above the menu by default
@@ -143,6 +145,8 @@ override the following classnames.
 - `editorView` prosemirror editor view
 - `icons` Optional, if you want to provide icons for your menu elements. Type of `{[key: string]: FC}` where the key is
   the id of the menu element and the value is a `FunctionComponent` that renders the icon
+- `rightIcons` Same as icons but these appear on the right on the menu element, most commonly used for indicating a
+  submenu with an arrow
 - `subMenuIcon` Optional icon for submenu label. By default, when a submenu is open an arrow is displayed indicating
   that the user is in a subMenu, it can be replaced with a react node of your choice
 - `filterFieldIcon` Optional icon in the filter field.
@@ -150,3 +154,4 @@ override the following classnames.
 - `mainMenuLabel` Optional label for the main menu. By default, there is none.
 - `popperReference` Optional popper reference HTMLElement, for displaying the menu next to whatever element you want
 - `popperOptions` You can pass in `placement` and `offset` to position your menu around the reference Element
+- `clickable` Optional boolean, if true the menu items are clickable, by default they are used only with keyboard
