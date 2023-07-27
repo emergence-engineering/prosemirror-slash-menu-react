@@ -75,6 +75,7 @@ export const SlashMenuReact: FC<SlashMenuProps> = ({
 }) => {
   const menuState = useMemo(() => {
     if (!editorState) return;
+
     return SlashMenuKey.getState(editorState);
   }, [editorState]);
   const elements = useMemo(() => {
@@ -82,10 +83,12 @@ export const SlashMenuReact: FC<SlashMenuProps> = ({
 
     return menuState.filteredElements;
   }, [menuState]);
+
   const rootRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!rootRef) return;
+
     const outsideClickHandler = (event: MouseEvent) => {
       if (
         rootRef.current &&
@@ -98,17 +101,23 @@ export const SlashMenuReact: FC<SlashMenuProps> = ({
         });
       }
     };
+
     document.addEventListener("mousedown", outsideClickHandler);
+
     return () => {
       document.removeEventListener("mousedown", outsideClickHandler);
     };
   }, [rootRef]);
 
   const [popperElement, setPopperElement] = React.useState(null);
+
   const virtualReference = useMemo(() => {
     const domNode = editorView.domAtPos(editorState.selection.to)?.node;
-    const cursorLeft = editorView.coordsAtPos(editorState.selection.to).left;
+    const cursorPosition = editorView.state.selection.to;
+    const cursorLeft = editorView.coordsAtPos(cursorPosition).left;
+
     if (!(domNode instanceof HTMLElement)) return;
+
     const { top, height } = domNode.getBoundingClientRect();
 
     return {
@@ -136,10 +145,9 @@ export const SlashMenuReact: FC<SlashMenuProps> = ({
         };
       },
     };
-  }, [editorState, window.scrollY]);
+  }, [editorView, editorState, window.scrollY]);
+
   const offsetModifier = useMemo(() => {
-    const filterElement = document.getElementById("menu-filter-wrapper");
-    const filterTop = filterElement?.getBoundingClientRect().top;
     return {
       name: "offset",
       options: {
@@ -147,6 +155,7 @@ export const SlashMenuReact: FC<SlashMenuProps> = ({
       },
     };
   }, [popperReference]);
+
   const { styles, attributes } = usePopper(
     popperReference || virtualReference,
     popperElement,
@@ -168,15 +177,19 @@ export const SlashMenuReact: FC<SlashMenuProps> = ({
 
   useEffect(() => {
     if (!menuState) return;
+
     const element = document.getElementById(menuState.selected);
 
     if (!element || !rootRef.current) return;
+
     const isTopElement =
       menuState.selected === menuState.filteredElements[0].id;
+
     if (isTopElement) {
       rootRef.current.scrollTop = 0;
       return;
     }
+
     const height =
       element.clientHeight +
       parseInt(
@@ -193,11 +206,15 @@ export const SlashMenuReact: FC<SlashMenuProps> = ({
       );
 
     const { bottom, top } = element.getBoundingClientRect();
+
     const containerRect = rootRef.current.getBoundingClientRect();
+
     const scrollUp = top - height < containerRect.top;
+
     const visible = scrollUp
       ? top - containerRect.top > height
       : !(bottom > containerRect.bottom);
+
     if (!visible) {
       if (scrollUp) {
         rootRef.current.scrollTop = element.offsetTop - height / 2;
@@ -212,13 +229,16 @@ export const SlashMenuReact: FC<SlashMenuProps> = ({
     if (rootRef.current === null) {
       return;
     }
+
     rootRef.current.scrollTop = 0;
   }, [menuState?.filteredElements]);
+
   const subMenuLabel = useMemo(() => {
     if (menuState?.subMenuId) {
       return getElementById(menuState.subMenuId, menuState)?.label;
     }
   }, [menuState]);
+
   const closeSubMenu = useCallback(() => {
     if (menuState?.subMenuId) {
       dispatchWithMeta(editorView, SlashMenuKey, {
@@ -227,6 +247,7 @@ export const SlashMenuReact: FC<SlashMenuProps> = ({
       });
     }
   }, [menuState]);
+
   // These two useEffects prevent a bug where the user navigates with clicks, which then blurs the editor and key presses stop working
   useEffect(() => {
     editorView.focus();
