@@ -1,0 +1,28 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:react/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+        "@typescript-eslint",
+        "react",
+	"prettier",
+	"jest"
+    ],
+    "rules": {
+    "import/no-unresolved": "off",
+    "import/extensions": "off",
+    "no-shadow": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "no-promise-executor-return": "off",
+    "consistent-return": "off",
+    "import/prefer-default-export": "off"
+    }
+}
