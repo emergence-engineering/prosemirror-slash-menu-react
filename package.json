@@ -1,12 +1,11 @@
 {
   "name": "prosemirror-slash-menu-react",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Implementation of prosemirror-slash-menu in react",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
     "test": "echo \"no test specified\" && exit 0",
     "build": "rollup -c --bundleConfigAsCjs",
     "dev": "rollup -c -w --bundleConfigAsCjs",
@@ -30,7 +29,7 @@
     "@types/react-dom": "^18.2.4",
     "prosemirror-commands": "^1.5.2",
     "prosemirror-schema-basic": "^1.2.2",
-    "prosemirror-slash-menu": "^0.1.6",
+    "prosemirror-slash-menu": "^0.1.7",
     "prosemirror-state": "1.4.3",
     "prosemirror-view": "^1.31.4",
     "react": "^18.2.0",

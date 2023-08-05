@@ -1,5 +1,13 @@
 # prosemirror-slash-menu-react
 
+## 0.0.10
+
+### Patch Changes
+
+- remove preinstall
+- Updated dependencies
+  - prosemirror-slash-menu@0.1.7
+
 ## 0.0.9
 
 ### Patch Changes
