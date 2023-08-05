@@ -1,5 +1,11 @@
 # prosemirror-slash-menu-react
 
+## 0.0.9
+
+### Patch Changes
+
+- prosemirror-slash-menu@0.1.6
+
 ## 0.0.8
 
 ### Patch Changes
