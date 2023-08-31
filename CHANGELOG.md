@@ -1,5 +1,13 @@
 # prosemirror-slash-menu-react
 
+## 0.0.11
+
+### Patch Changes
+
+- fix readme ee img
+- Updated dependencies
+  - prosemirror-slash-menu@0.1.8
+
 ## 0.0.10
 
 ### Patch Changes

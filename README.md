@@ -1,6 +1,6 @@
 # prosemirror-slash-menu-react
 
-![made by Emergence Engineering](https://emergence-engineering.com/ee-logo.svg)
+[![made by Emergence Engineering](https://emergence-engineering.com/ee-logo.svg)](https://emergence-engineering.com)
 
 [**Made by Emergence-Engineering**](https://emergence-engineering.com/)
 
@@ -39,84 +39,83 @@ Install from npm with:
 Usage in the app:
 
 ```tsx
-import React, {useEffect, useRef, useState} from "react";
-import {exampleSetup} from "prosemirror-example-setup";
-import {EditorState} from "prosemirror-state";
-import {EditorView} from "prosemirror-view";
+import React, { useEffect, useRef, useState } from "react";
+import { exampleSetup } from "prosemirror-example-setup";
+import { EditorState } from "prosemirror-state";
+import { EditorView } from "prosemirror-view";
 import schema from "./schema";
-import {SlashMenuPlugin} from "prosemirror-slash-menu";
+import { SlashMenuPlugin } from "prosemirror-slash-menu";
 import {
-    defaultElements,
-    defaultIcons,
-    Icons,
-    SlashMenuReact,
+  defaultElements,
+  defaultIcons,
+  Icons,
+  SlashMenuReact,
 } from "prosemirror-slash-menu-react";
 
 const ProseMirrorSlashMenuDemo = () => {
-    const [pmState, setPmState] = useState<EditorState>();
-    const [editorView, setEditorView] = useState<EditorView>();
-    const editorRef = useRef<HTMLDivElement>(null);
-    useEffect(() => {
-        if (!editorRef.current) return;
-        const state = EditorState.create({
-            doc: schema.nodeFromJSON({
-                content: [
-                    {
-                        content: [
-                            {
-                                text: "Type '/' after a space to open the menu. ",
-                                type: "text",
-                            },
-                        ],
-                        type: "paragraph",
-                    },
-                ],
-                type: "doc",
-            }),
-            plugins: [
-                SlashMenuPlugin(defaultElements),
-                ...exampleSetup({
-                    schema,
-                }),
+  const [pmState, setPmState] = useState<EditorState>();
+  const [editorView, setEditorView] = useState<EditorView>();
+  const editorRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!editorRef.current) return;
+    const state = EditorState.create({
+      doc: schema.nodeFromJSON({
+        content: [
+          {
+            content: [
+              {
+                text: "Type '/' after a space to open the menu. ",
+                type: "text",
+              },
             ],
-        });
-        const view: EditorView = new EditorView(editorRef.current, {
-            state,
-            dispatchTransaction: (tr) => {
-                try {
-                    const newState = view.state.apply(tr);
-                    view.updateState(newState);
-                    setPmState(newState);
-                } catch (e) {
-                }
-            },
-        });
-        setEditorView(view);
-        return () => {
-            view && view.destroy();
-        };
-    }, [editorRef]);
-    return (
-        <>
-            <div ref={editorRef} id="editor"/>
-            {pmState && editorView && (
-                <SlashMenuReact
-                    icons={{
-                        [Icons.HeaderMenu]: defaultIcons.H1Icon,
-                        [Icons.Level1]: defaultIcons.H1Icon,
-                        [Icons.Level2]: defaultIcons.H2Icon,
-                        [Icons.Level3]: defaultIcons.H3Icon,
-                        [Icons.Bold]: defaultIcons.BoldIcon,
-                        [Icons.Italic]: defaultIcons.ItalicIcon,
-                        [Icons.Code]: defaultIcons.CodeIcon,
-                        [Icons.Link]: defaultIcons.LinkIcon,
-                    }}
-                    editorState={pmState}
-                    editorView={editorView}
-                />
-            )}
-        </>
-    );
+            type: "paragraph",
+          },
+        ],
+        type: "doc",
+      }),
+      plugins: [
+        SlashMenuPlugin(defaultElements),
+        ...exampleSetup({
+          schema,
+        }),
+      ],
+    });
+    const view: EditorView = new EditorView(editorRef.current, {
+      state,
+      dispatchTransaction: (tr) => {
+        try {
+          const newState = view.state.apply(tr);
+          view.updateState(newState);
+          setPmState(newState);
+        } catch (e) {}
+      },
+    });
+    setEditorView(view);
+    return () => {
+      view && view.destroy();
+    };
+  }, [editorRef]);
+  return (
+    <>
+      <div ref={editorRef} id="editor" />
+      {pmState && editorView && (
+        <SlashMenuReact
+          icons={{
+            [Icons.HeaderMenu]: defaultIcons.H1Icon,
+            [Icons.Level1]: defaultIcons.H1Icon,
+            [Icons.Level2]: defaultIcons.H2Icon,
+            [Icons.Level3]: defaultIcons.H3Icon,
+            [Icons.Bold]: defaultIcons.BoldIcon,
+            [Icons.Italic]: defaultIcons.ItalicIcon,
+            [Icons.Code]: defaultIcons.CodeIcon,
+            [Icons.Link]: defaultIcons.LinkIcon,
+          }}
+          editorState={pmState}
+          editorView={editorView}
+        />
+      )}
+    </>
+  );
 };
 ```
 
