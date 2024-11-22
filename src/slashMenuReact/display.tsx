@@ -10,6 +10,7 @@ import { EditorState } from "prosemirror-state";
 import {
   dispatchWithMeta,
   getElementById,
+  MenuElement,
   SlashMenuKey,
   SlashMetaTypes,
 } from "prosemirror-slash-menu";
@@ -255,6 +256,24 @@ export const SlashMenuReact: FC<SlashMenuProps> = ({
   useEffect(() => {
     editorView.focus();
   }, [menuState?.subMenuId]);
+
+  const groups = useMemo(() => {
+    if (!elements) {
+      return;
+    }
+
+    return elements.reduce((acc, el) => {
+      if (el.group) {
+        acc[el.group] = acc[el.group] || [];
+        acc[el.group].push(el);
+      } else {
+        acc[""] = acc[""] || [];
+        acc[""].push(el);
+      }
+      return acc;
+    }, {} as { [key: string]: MenuElement[] });
+  }, [elements]);
+
   return (
     <>
       {menuState?.open ? (
@@ -308,18 +327,38 @@ export const SlashMenuReact: FC<SlashMenuProps> = ({
                 <div className={"submenu-label"}>{mainMenuLabel}</div>
               </div>
             ) : null}
-            {elements?.map((el, idx) => (
-              <ListItem
-                key={el.id}
-                menuState={menuState}
-                Icon={icons?.[el.id]}
-                RightIcon={rightIcons?.[el.id]}
-                idx={idx}
-                clickable={clickable}
-                el={el}
-                view={editorView}
-              />
-            ))}
+            {groups && Object.keys(groups)?.length > 1
+              ? Object.keys(groups).map((group, x) => {
+                  return (
+                    <div key={x} className="group-wrapper">
+                      <div className="group-label">{group}</div>
+                      {groups?.[group].map((el: MenuElement, idx: number) => (
+                        <ListItem
+                          key={el.id}
+                          menuState={menuState}
+                          Icon={icons?.[el.id]}
+                          RightIcon={rightIcons?.[el.id]}
+                          idx={idx}
+                          clickable={clickable}
+                          el={el}
+                          view={editorView}
+                        />
+                      ))}
+                    </div>
+                  );
+                })
+              : elements?.map((el: MenuElement, idx: number) => (
+                  <ListItem
+                    key={el.id}
+                    menuState={menuState}
+                    Icon={icons?.[el.id]}
+                    RightIcon={rightIcons?.[el.id]}
+                    idx={idx}
+                    clickable={clickable}
+                    el={el}
+                    view={editorView}
+                  />
+                ))}
             {elements?.length === 0 ? (
               <div className={"menu-placeholder"}>No matching items</div>
             ) : null}

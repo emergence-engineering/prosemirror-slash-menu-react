@@ -1,5 +1,16 @@
 # prosemirror-slash-menu-react
 
+## 0.1.0
+
+### Minor Changes
+
+- slash menu grouping
+
+### Patch Changes
+
+- Updated dependencies
+  - prosemirror-slash-menu@0.2.0
+
 ## 0.0.12
 
 ### Patch Changes

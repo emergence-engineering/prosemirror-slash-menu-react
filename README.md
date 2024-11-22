@@ -137,6 +137,8 @@ override the following classnames.
 - `menu-filter-placeholder` placeholder text for the filter field
 - `menu-filter-icon` if icon is provided for the filter field it's rendered in this div
 - `submenu-label` The label of the submenu is shown above the menu elements when its opened
+- `group-wrapper` wrapper around the menu elements, if there are multiple groups of elements
+- `group-label` label/title of the group
 
 # Props
 
