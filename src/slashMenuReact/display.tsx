@@ -59,6 +59,7 @@ export interface SlashMenuProps {
   popperReference?: HTMLElement;
   popperOptions?: PopperOptions;
   clickable?: boolean;
+  disableInput?: boolean;
 }
 
 export const SlashMenuReact: FC<SlashMenuProps> = ({
@@ -73,6 +74,7 @@ export const SlashMenuReact: FC<SlashMenuProps> = ({
   popperReference,
   popperOptions,
   clickable,
+  disableInput,
 }) => {
   const menuState = useMemo(() => {
     if (!editorState) return;
@@ -285,7 +287,7 @@ export const SlashMenuReact: FC<SlashMenuProps> = ({
           }}
           {...attributes.popper}
         >
-          {menuState.filter ? (
+          {disableInput ? null : menuState.filter ? (
             <div className={"menu-filter-wrapper"}>
               {filterFieldIcon ? (
                 <div className={"menu-filter-icon"}>{filterFieldIcon}</div>
