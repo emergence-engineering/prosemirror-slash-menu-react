@@ -1,5 +1,13 @@
 # prosemirror-slash-menu-react
 
+## 0.4.1
+
+### Patch Changes
+
+- inline filter
+- Updated dependencies
+  - prosemirror-slash-menu@0.4.2
+
 ## 0.4.0
 
 ### Minor Changes
