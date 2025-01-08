@@ -1,5 +1,13 @@
 # prosemirror-slash-menu-react
 
+## 0.4.2
+
+### Patch Changes
+
+- slash menu command order
+- Updated dependencies
+  - prosemirror-slash-menu@0.4.3
+
 ## 0.4.1
 
 ### Patch Changes
