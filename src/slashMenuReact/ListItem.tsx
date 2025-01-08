@@ -31,10 +31,10 @@ export const ListItem: FC<{
   }, [menuState.selected]);
   const handleOnClick = useCallback(() => {
     if (el.type === "command") {
+      el.command(view);
       dispatchWithMeta(view, SlashMenuKey, {
         type: SlashMetaTypes.execute,
       });
-      el.command(view);
     }
     if (el.type === "submenu") {
       dispatchWithMeta(view, SlashMenuKey, {

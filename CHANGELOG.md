@@ -1,5 +1,11 @@
 # prosemirror-slash-menu-react
 
+## 0.4.0
+
+### Minor Changes
+
+- command execution
+
 ## 0.3.0
 
 ### Minor Changes
