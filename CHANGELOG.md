@@ -1,5 +1,13 @@
 # prosemirror-slash-menu-react
 
+## 0.4.3
+
+### Patch Changes
+
+- handlekeydown
+- Updated dependencies
+  - prosemirror-slash-menu@0.4.4
+
 ## 0.4.2
 
 ### Patch Changes
