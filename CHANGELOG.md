@@ -1,5 +1,11 @@
 # prosemirror-slash-menu-react
 
+## 0.4.4
+
+### Patch Changes
+
+- noMatchingLabel
+
 ## 0.4.3
 
 ### Patch Changes

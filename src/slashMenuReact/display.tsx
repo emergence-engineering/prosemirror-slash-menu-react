@@ -60,6 +60,7 @@ export interface SlashMenuProps {
   popperOptions?: PopperOptions;
   clickable?: boolean;
   disableInput?: boolean;
+  noMatchLabel?: string;
 }
 
 export const SlashMenuReact: FC<SlashMenuProps> = ({
@@ -75,6 +76,7 @@ export const SlashMenuReact: FC<SlashMenuProps> = ({
   popperOptions,
   clickable,
   disableInput,
+  noMatchLabel,
 }) => {
   const menuState = useMemo(() => {
     if (!editorState) return;
@@ -362,7 +364,9 @@ export const SlashMenuReact: FC<SlashMenuProps> = ({
                   />
                 ))}
             {elements?.length === 0 ? (
-              <div className={"menu-placeholder"}>No matching items</div>
+              <div className={"menu-placeholder"}>
+                {noMatchLabel || "No matching items"}
+              </div>
             ) : null}
           </div>
         </div>
