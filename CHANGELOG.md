@@ -1,5 +1,11 @@
 # prosemirror-slash-menu-react
 
+## 0.4.5
+
+### Patch Changes
+
+- emptySeractCompoent
+
 ## 0.4.4
 
 ### Patch Changes
