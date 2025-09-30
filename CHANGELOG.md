@@ -1,5 +1,11 @@
 # prosemirror-slash-menu-react
 
+## 0.4.7
+
+### Patch Changes
+
+- peerDependencies react 18 || 19
+
 ## 0.4.6
 
 ### Patch Changes
