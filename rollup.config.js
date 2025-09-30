@@ -15,7 +15,10 @@ export default {
     },
     { file: pkg.module, format: "esm", sourcemap: true },
   ],
-  external: [...Object.keys(pkg.dependencies || {})],
+  external: [
+    ...Object.keys(pkg.dependencies || {}),
+    ...Object.keys(pkg.peerDependencies || {}),
+  ],
   plugins: [
     resolve({
       extensions: [".js", ".jsx", ".ts", ".tsx"], // Include JSX file extension

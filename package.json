@@ -1,6 +1,6 @@
 {
   "name": "prosemirror-slash-menu-react",
-  "version": "0.4.8",
+  "version": "0.4.9",
   "description": "Implementation of prosemirror-slash-menu in react",
   "main": "dist/index.js",
   "module": "dist/index.es.js",

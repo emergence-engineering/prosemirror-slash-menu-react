@@ -1,5 +1,11 @@
 # prosemirror-slash-menu-react
 
+## 0.4.9
+
+### Patch Changes
+
+- rollup
+
 ## 0.4.8
 
 ### Patch Changes
