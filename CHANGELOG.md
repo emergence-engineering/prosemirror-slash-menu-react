@@ -1,5 +1,11 @@
 # prosemirror-slash-menu-react
 
+## 0.4.8
+
+### Patch Changes
+
+- peer deps
+
 ## 0.4.7
 
 ### Patch Changes
